@@ -1,5 +1,8 @@
 module.exports = {
   mode: 'production',
+  resolve: {
+    extensions: ['.ts', '.js', '.jsx'],
+  },
   module: {
     rules: [
       {
