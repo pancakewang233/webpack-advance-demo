@@ -4,6 +4,8 @@ import {x} from '@/ts-demo'
 import {TsxDemo} from '@/tsx-demo'
 import {y} from '@/dir/x'
 import {c} from '@/dir/c'
+import '@/scss-demo.scss'
+
 
 const b = import('./b') // 动态引入，也叫按需引入
 console.log(y)

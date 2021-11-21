@@ -5,6 +5,7 @@ module.exports = {
     // 提示要在 jsx 里手动引入 React
     'react/react-in-jsx-scope': [2]
   },
+  // 引入 TS 检查
   overrides: [{
     files: ['*.ts', '*.tsx'],
     parserOptions: {
@@ -16,5 +17,4 @@ module.exports = {
       'import/prefer-default-export': [0]
     }
   }]
-
 }
