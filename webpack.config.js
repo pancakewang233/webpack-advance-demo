@@ -33,7 +33,15 @@ module.exports = {
         test: /\.s[ac]ss$/i,
         use: [
           'style-loader',
-          'css-loader',
+          // css支持导出, 给 JS 读取
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                compileType: 'icss'
+              }
+            }
+          },
           {
             loader: "sass-loader",
             // sass 自动导入全局，不用每个文件写import scss
