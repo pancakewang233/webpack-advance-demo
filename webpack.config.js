@@ -28,12 +28,24 @@ module.exports = {
           }
         }
       },
+      // webpack 配置 sass
       {
         test: /\.s[ac]ss$/i,
         use: [
           'style-loader',
           'css-loader',
-          'sass-loader'
+          {
+            loader: "sass-loader",
+            // sass 自动导入全局，不用每个文件写import scss
+            options: {
+              additionalData: `
+                @import "~@/scss-vars.scss";
+              `,
+              sassOptions: {
+                includePaths: [__dirname]
+              }
+            }
+          }
         ]
       }
     ]
