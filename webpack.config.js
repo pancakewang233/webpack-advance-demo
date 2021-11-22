@@ -17,13 +17,32 @@ module.exports = {
       // 增加什么后缀就检查什么文件
       extensions: ['.js', '.jsx', '.ts', '.tsx']
     }),
+    // build 后分离出 css 文件
     mode === 'production' && new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css'
     }),
+    // build 后分离出 html 文件
     new HtmlWebpackPlugin()
   ].filter(Boolean),
+  // build 后的 js 文件 hash 重命名
   output: {
     filename: '[name].[contenthash].js'
+  },
+  // 优化运行时配置
+  optimization: {
+    // 运行时runtime文件(webpack配置)单独打包, index.js 不变则不会生成新的 main.js,只更新 runtime.js,节省用户带宽。
+    runtimeChunk: 'single',
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          minSize: 0, // 如果不写0，react 文件尺寸太小会被跳过
+          test: /[\\/node_modules[\\/]/,  // 为了匹配 node_modules
+          name: 'vendors',  // 文件名
+          chunks: "all"  // all 表示同步加载和异步加载，async 表示异步加载，initial 表示同步加载
+          // 这三行的意思是把两种加载方式的来自 node_modules 目录文件打包为 vendors.xxx.js, vendors 是第三方的意思
+        }
+      }
+    }
   },
   module: {
     rules: [
