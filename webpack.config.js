@@ -55,7 +55,7 @@ module.exports = {
           // 优先级
           priority: 10,
           minSize: 0, // 如果不写0，react 文件尺寸太小会被跳过
-          test: /[\\/node_modules[\\/]/,  // 为了匹配 node_modules
+          test: /[\\/]node_modules[\\/]/,  // 为了匹配 node_modules
           name: 'vendors',  // 文件名
           chunks: "all"  // all 表示同步加载和异步加载，async 表示异步加载，initial 表示同步加载
           // 这三行的意思是把两种加载方式的来自 node_modules 目录文件打包为 vendors.xxx.js, vendors 是第三方的意思
