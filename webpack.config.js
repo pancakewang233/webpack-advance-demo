@@ -9,7 +9,8 @@ module.exports = {
   // 多页面
   entry: {
     main: './src/index.js',
-    admin: './src/admin.js'
+    admin: './src/admin.js',
+    obb: './src/obb.js'
   },
   resolve: {
     alias: {
@@ -27,10 +28,17 @@ module.exports = {
       filename: '[name].[contenthash].css'
     }),
     // build 后分离出 html 文件
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      chunks: ['index']
+    }),
     new HtmlWebpackPlugin({
       filename: 'admin.html',
       chunks: ['admin']
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'obb.html',
+      chunks: ['obb']
     })
   ].filter(Boolean),
   // build 后的 js 文件 hash 重命名
@@ -44,11 +52,22 @@ module.exports = {
     splitChunks: {
       cacheGroups: {
         vendor: {
+          // 优先级
+          priority: 10,
           minSize: 0, // 如果不写0，react 文件尺寸太小会被跳过
           test: /[\\/node_modules[\\/]/,  // 为了匹配 node_modules
           name: 'vendors',  // 文件名
           chunks: "all"  // all 表示同步加载和异步加载，async 表示异步加载，initial 表示同步加载
           // 这三行的意思是把两种加载方式的来自 node_modules 目录文件打包为 vendors.xxx.js, vendors 是第三方的意思
+        },
+        // 多页面共用文件配置
+        commons: {
+          priority: 5,
+          minSize: 0,
+          // 共用文件被至少两个文件引用了
+          minChunks: 2,
+          chunks: "all",
+          name: 'commons'
         }
       }
     }

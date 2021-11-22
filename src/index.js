@@ -6,7 +6,7 @@ import {y} from '@/dir/x'
 import {c} from '@/dir/c'
 import '@/scss-demo.scss'
 import vars from '@/scss-export.scss'
-
+import shared from '@/share'
 
 const b = import('./b') // 动态引入，也叫按需引入
 console.log(y)
@@ -15,6 +15,7 @@ console.log(TsxDemo)
 console.log(JsxDemo)
 console.log(x)
 console.log(vars)
+console.log(shared)
 const hi = () =>{
   console.log('pank')
   console.log(a)
