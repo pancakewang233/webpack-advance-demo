@@ -6,6 +6,11 @@ const mode = 'production'
 
 module.exports = {
   mode,
+  // 多页面
+  entry: {
+    main: './src/index.js',
+    admin: './src/admin.js'
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src/')
@@ -22,7 +27,11 @@ module.exports = {
       filename: '[name].[contenthash].css'
     }),
     // build 后分离出 html 文件
-    new HtmlWebpackPlugin()
+    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      filename: 'admin.html',
+      chunks: ['admin']
+    })
   ].filter(Boolean),
   // build 后的 js 文件 hash 重命名
   output: {
